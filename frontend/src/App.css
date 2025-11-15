@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0a0a0f;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.App {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Gradient Background */
+.gradient-bg {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Glassmorphism Effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  transition: all 0.3s ease;
+
+}
+
+/* Heading Styles */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Button Styles */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  overflow: hidden; /* ✅ ensures hover overlay stays inside shape */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 0; /* ✅ creates a stacking context for ::before */
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* ✅ replaces top, left, width, height with a clean shorthand */
+  background: linear-gradient(135deg, #764ba2 0%, #FFD700 100%);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+  z-index: -1; /* ✅ this puts it *behind* the text always */
+  border-radius: 50px;
+}
+
+.btn-primary:hover::before {
+  transform: translateX(0); /* ✅ slides overlay into view */
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1; /* ✅ ensures text is *always* above gradient overlay */
+}
+
+
+.btn-secondary {
+  background: transparent;
+  color: #FFD700;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: 2px solid #FFD700;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background: #FFD700;
+  color: #0f0c29;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+/* Card Hover Effects */
+.event-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.event-card:hover {
+  transform: translateY(-10px) rotateX(5deg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Particle Background */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0c29;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #FFD700 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-primary, .btn-secondary {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+/* --- Smaller, balanced buttons for sidebar and modals --- */
+.btn-small {
+  padding: 8px 18px;
+  font-size: 14px;
+  border-radius: 9999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Danger button for Delete */
+.btn-danger {
+  background: transparent;
+  color: #f87171;
+  border: 2px solid #f87171;
+}
+
+.btn-danger:hover {
+  background: rgba(248, 113, 113, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(248, 113, 113, 0.2);
+}
+
+/* Secondary small (for Edit, Cancel, etc.) */
+.btn-secondary.btn-small {
+  border: 2px solid #FFD700;
+  color: #FFD700;
+  background: transparent;
+}
+
+.btn-secondary.btn-small:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 215, 0, 0.25);
+}
